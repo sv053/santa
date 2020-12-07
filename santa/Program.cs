@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace santa
@@ -34,13 +35,13 @@ namespace santa
             {
                 List<char> arrowTypes = new List<char> { '^', 'v', '>', '<' };
                 int[] arrows = new int[4];
-                
-                for(int i = 0; i < arrowTypes.Count; i++)
+
+                for (int i = 0; i < arrowTypes.Count; i++)
                     arrows[i] = inputStr.Where(ch => ch == arrowTypes[i]).ToList().Count;
-                
-               int y = (int)Math.Max(arrows[0], arrows[1]);
-               int x = (int)Math.Max(arrows[2], arrows[3]);
-               
+
+                int y = (int)Math.Max(arrows[0], arrows[1]);
+                int x = (int)Math.Max(arrows[2], arrows[3]);
+
                 int[,] Grid = new int[Math.Max(y, 1) * 2 + 1, Math.Max(x, 1) * 2 + 1];
 
                 foreach (char arrow in inputStr)
@@ -57,15 +58,15 @@ namespace santa
                 return Grid;
             }
 
-            int CountHouses(int[,] resMatrix) 
+            int CountHouses(int[,] resMatrix)
             {
-               int happyHouses = 0;
-                foreach(int ar in resMatrix) happyHouses+= ar == 1 ? 1 : 0;
-                  return happyHouses;
+                int happyHouses = 0;
+                foreach (int ar in resMatrix) happyHouses += ar == 1 ? 1 : 0;
+                return happyHouses;
             }
 
             bool AssertEqual(string hh, int res) => CountHouses(BuildResultHouseGrid(hh)) == res;
-           
+
             void OutputResults()
             {
                 Console.WriteLine("houses : 2080 " + AssertEqual(houses, 2080));
@@ -80,7 +81,52 @@ namespace santa
                 Console.WriteLine("houses9 : 4 " + AssertEqual(houses9, 4));
                 Console.WriteLine("houses10 : 6 " + AssertEqual(houses10, 6));
             }
-            OutputResults();
+
+            void GetDataSource()
+            {
+                int ifLoadFile = 0;
+
+                Console.WriteLine("Load data from file? 1 - yes, 0 - no");
+                while (!Int32.TryParse(Console.ReadLine(), out ifLoadFile))
+                {
+                    Console.WriteLine("1 - yes, 0 - no");
+                }
+                if (ifLoadFile == 1)
+                {
+                    DirectoryInfo dir = new DirectoryInfo(@"..\..\..\ForYourFile\");
+                    if (!dir.Exists)  dir.Create();
+                   
+                    Console.WriteLine("Put file here - " + dir + " and print its name (e.g. file.txt):");
+                    string fileName = Console.ReadLine();
+                    if (fileName.Length > 5)     LoadFile(dir + fileName);
+                    else     Console.WriteLine("Put the right name, please");
+                }
+                else OutputResults();
+            }
+            void LoadFile(string filename)
+            {
+                string textFromFile = "";
+                try
+                {
+                    using (FileStream fstream = File.OpenRead(filename))
+                    {
+                        byte[] array = new byte[fstream.Length];
+                        fstream.Read(array, 0, array.Length);
+                        textFromFile = System.Text.Encoding.Default.GetString(array);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                if (textFromFile.Length > 0)
+                {
+                    Console.WriteLine(textFromFile);
+                    Console.WriteLine("___________________");
+                    Console.WriteLine("houses : " + CountHouses(BuildResultHouseGrid(textFromFile)));
+                }
+            }
+            GetDataSource();
         }
     }
 }
