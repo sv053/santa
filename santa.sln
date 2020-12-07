@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "santa", "santa\santa.csproj", "{BFF63FDF-6994-42B7-ADA6-BB111CCC035C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFF63FDF-6994-42B7-ADA6-BB111CCC035C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF63FDF-6994-42B7-ADA6-BB111CCC035C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF63FDF-6994-42B7-ADA6-BB111CCC035C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF63FDF-6994-42B7-ADA6-BB111CCC035C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19E71829-44CD-4730-926E-5FC61CDD40B5}
+	EndGlobalSection
+EndGlobal
